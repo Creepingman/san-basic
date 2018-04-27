@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>start - twoday binding</title>
+</head>
+
+<body>
+	<script src="node_modules/san/dist/san.js"></script>
+	<script>
+		var MyApp = san.defineComponent({
+			template: '<div><input value="{= name =}" placeholder="Please input">Hello {{name}}!</div>'
+		});
+
+		var myApp = new MyApp();
+		myApp.attach(document.body);
+	</script>
+</body>
+</html>

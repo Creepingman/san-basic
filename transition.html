@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>start - transition</title>
+</head>
+
+<body>
+	<script src="node_modules/san/dist/san.js"></script>
+	<script>
+		var opacityTranser = {
+			enter: function (el, done) {
+				var steps = 20;
+				var currentStep = 0;
+
+				function goStep() {
+					if (currentStep >= steps) {
+						el.style.opacity = 1;
+						done();
+						return;
+					}
+
+					el.style.opacity = currentStep++ / steps;
+					requestAnimationFrame(goStep);
+				}
+
+				goStep();
+			},
+
+			leave: function(el, done) {
+				var steps = 20;
+				var currentStep = 0;
+
+				function goStep() {
+					if (currentStep >= steps) {
+						el.style.opacity = 0;
+						done();
+						return;
+					}
+
+					el.style.opacity = 1 - currentStep++ / steps;
+					requestAnimationFrame(goStep);
+				}
+
+				goStep();
+			}
+		};
+
+		var MyApp = san.defineComponent({
+			template: ''
+				+ '<div>'
+				+ '	<button on-click="toggle">toggle</button>'
+				+ '	<b s-if="num > 10000" s-transition="opacityTranser">big</b>'
+				/*条件句在这里怎么成立的？？？ 还有如何在没有css设置的情况下隐藏下面的span*/
+				+ '	<span s-else s-transition="opacityTranser">small</span>'
+				+ '</div>',
+
+			opacityTranser: opacityTranser,
+
+			toggle: function () {
+				var num = this.data.get('num');
+				this.data.set('num', num > 10000 ? 1 : 30000);
+			}
+		});
+
+		var MyApp = new MyApp ({
+			data: {
+				num: 30000
+			}
+		});
+		MyApp.attach(document.body);
+	</script>
+</body>
+</html>

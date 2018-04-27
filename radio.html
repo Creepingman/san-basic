@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>start - radio</title>
+</head>
+
+<body>
+	<script src="node_modules/san/dist/san.js"></script>
+	<script>
+		var MyApp = san.defineComponent({
+			template: '<div>'
+				+ '<label><input type="radio" value="errorik" checked="{= online =}" name="online">errorik</label>'
+				+ '<label><input type="radio" value="otakustay" checked="{= online =}" name="online">otakustay</label>'
+				+ '<label><input type="radio" value="firede" checked="{= online =}" name="online">firede</label>'
+				+ '<br>{{online}}'
+				+ '</div>',
+
+			initData: function () {
+				return {
+					online: 'errorik'
+				};
+			}
+		});
+
+		var myApp = new MyApp();
+		myApp.attach(document.body);
+	</script>
+</body>
+</html>
